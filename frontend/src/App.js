@@ -6,12 +6,14 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import HomeScreen from './screens/HomeScreen';
 import ProductScreen from './screens/ProductScreen';
+import TopBar from './components/TopBar';
 
 const App = () => {
   return (
     <Router>
   
     <>
+    <TopBar/>
       <Header />
       <main className='py-3'>
         <Container>

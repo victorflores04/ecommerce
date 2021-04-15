@@ -7,3 +7,29 @@ h3{
 .rating span{
  margin: 0.1rem;
 }
+.color-custom {
+  background-color: black;
+}
+.link-custom{
+  color: white;
+}
+.navbar {
+  border:0px;
+}
+
+.dropdown-menu {
+  border: 0px;
+  }
+.card-custom{
+  border: 0px;
+}
+.card-custom:hover {
+  box-shadow: 0 5px 9px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+}
+.text-decoration{
+  text-decoration: line-through;
+}
+.icon-custom i{
+  font-size: 20px;
+}

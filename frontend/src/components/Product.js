@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const Product = ({ product }) => {
     return (
-        <Card className='my-3 p-3 rounded' >
+        <Card className='my-3 p-3 rounded card-custom' >
             <Link to={`/product/${product._id}`} >
                 <Card.Img src={product.image} variant='top' />
             </Link>
@@ -13,10 +13,13 @@ const Product = ({ product }) => {
                 <Link to={`/product/${product._id}`} >
                     <Card.Title as='div'><strong>{product.name}</strong></Card.Title>
                 </Link>
+                {/* reviwes of product single
                 <Card.Text as='div'>
                 <Rating value={product.rating} text={`${product.numReviews} reviews`} />
                 </Card.Text>
+                */}
                 <Card.Text as='h3'>S/.{product.price}</Card.Text>
+                <Card.Text className='text-decoration' as='h6'>S/. {product.price=product.price+((15/100)*product.price)}</Card.Text>
             </Card.Body>
         </Card>
     )
