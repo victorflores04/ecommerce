@@ -18,7 +18,7 @@ const Product = ({ product }) => {
                 <Rating value={product.rating} text={`${product.numReviews} reviews`} />
                 </Card.Text>
                 */}
-                <Card.Text as='h3'>S/.{product.price}</Card.Text>
+                <Card.Text as='h5' className='text-color'>S/.{product.price}</Card.Text>
                 <Card.Text className='text-decoration' as='h6'>S/. {product.price=product.price+((15/100)*product.price)}</Card.Text>
             </Card.Body>
         </Card>

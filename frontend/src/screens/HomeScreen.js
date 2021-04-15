@@ -17,7 +17,7 @@ const HomeScreen = () => {
 
     return (
         <>
-            <h1>Apple</h1>
+            <h6>Productos Destacados</h6>
             { loading ? <h1>Loading ...</h1> : error ? <h3>{error}</h3> :
                 <Row>
                     {products.map(product => (

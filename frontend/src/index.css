@@ -4,13 +4,23 @@ main {
 h3{
   padding: 1rem;
 }
+.top-custom{
+  margin-top: -29px !important;
+}
 .rating span{
  margin: 0.1rem;
+}
+.text-color{
+  color: #fa8b0f;
+  font-weight: 900;
 }
 .color-custom {
   background-color: black;
 }
 .link-custom{
+  color: white;
+}
+.link-custom:hover{
   color: white;
 }
 .navbar {
@@ -31,5 +41,11 @@ h3{
   text-decoration: line-through;
 }
 .icon-custom i{
-  font-size: 20px;
+  font-size: 22px;
+}
+.img-custom{
+  max-height: 150px;
+max-width: 200px;
+width: 100px;
+height: 100px;
 }

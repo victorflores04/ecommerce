@@ -6,9 +6,10 @@ const Header = () => {
     return (
         <header>
             <Navbar className='navbar' bg="light" variant="light" expand="lg" collapseOnSelect>
-                <Container>
+                <Container className='top-custom' >
                     <LinkContainer to='/'>
-                        <Navbar.Brand>TheGsas</Navbar.Brand>
+                        <Navbar.Brand><img className='img-custom' src="https://i.imgur.com/atUEmxP.png" title="logo" alt='logo'/>
+                         </Navbar.Brand>
                     </LinkContainer>
                     <Navbar.Toggle aria-controls="basic-navbar-nav" />
                     <Navbar.Collapse id="basic-navbar-nav">
