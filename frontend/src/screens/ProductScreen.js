@@ -1,13 +1,17 @@
-import React, { useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Badge, Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap';
+import { Badge, Button, Card, Col, Form, Image, ListGroup, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import Rating from '../components/Rating';
 import { listProductDetails } from '../actions/productActions';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
 
-const ProductScreen = ({ match }) => {
+const ProductScreen = ({ history,match }) => {
+
+    const [qty, setQty] = useState(0)
+
+
 
     const dispatch = useDispatch()
 
@@ -17,6 +21,10 @@ const ProductScreen = ({ match }) => {
     useEffect(() => {
         dispatch(listProductDetails(match.params.id))
     }, [dispatch, match])
+
+    const addToCartHandler = ()=>{
+        history.push((`/cart/${match.params.id}?qty=${qty}`))
+    }
 
     return (
         <>
@@ -41,10 +49,10 @@ const ProductScreen = ({ match }) => {
                             <ListGroup.Item>
                                 <h8>1. Escoge tu color favorito</h8>
                                 <Row className='top'>
-                                        <Button className='btn-push-color left yellow' variant="primary"></Button>
-                                        <Button className='btn-push-color plomo' variant="primary"></Button>
-                                        <Button className='btn-push-color red' variant="primary"></Button>
-                                        <Button className='btn-push-color verde' variant="primary"></Button>
+                                    <Button className='btn-push-color left yellow' variant="primary"></Button>
+                                    <Button className='btn-push-color plomo' variant="primary"></Button>
+                                    <Button className='btn-push-color red' variant="primary"></Button>
+                                    <Button className='btn-push-color verde' variant="primary"></Button>
                                 </Row>
                             </ListGroup.Item>
                             <ListGroup.Item>
@@ -65,20 +73,47 @@ const ProductScreen = ({ match }) => {
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
+                                {/*
                                 <ListGroup.Item>
                                     <Row>
                                         <Col>
-                                        Cantidad:
+                                            Cantidad:
                                         </Col>
                                     </Row>
+                                    
                                     <Row className='top'>
                                         <Button className='btn-push' variant="primary"><i class="fas fa-minus"></i></Button>
                                         <h4 className='top'>1</h4>
                                         <Button className='btn-push' variant="primary"><i class="fas fa-plus"></i></Button>
-                                    </Row>
+                                    </Row>    
                                 </ListGroup.Item>
+                                */}
+                                {product.countInStock > 0 && (
+                                    <ListGroup.Item>
+                                        <Row>
+                                            <Col>
+                                                Cantidad:
+                                            </Col>
+                                            <Col>
+                                                <Form.Control as='select' value={qty} onChange={(e) => setQty(e.target.value)}>
+
+                                                    {[...Array(product.countInStock).keys()].map((x)=>(
+                                                        <option key={x + 1} value={x + 1}>
+                                                        {x+1}
+                                                    </option>
+                                                    ))}
+                                                </Form.Control>
+                                            </Col>
+                                        </Row>
+                                    </ListGroup.Item>
+
+                                )}
                                 <ListGroup.Item>
-                                    <Button className='btn-block' type='button' disabled={product.countInStock === 0} >Agregar al carrito</Button>
+                                    <Button onClick={addToCartHandler}
+                                    className='btn-block' type='button' 
+                                    disabled={product.countInStock === 0} >
+                                    Agregar al carrito
+                                    </Button>
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <Row>
