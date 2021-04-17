@@ -4,7 +4,7 @@ import { Button, Col, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
-import { getUserDetails } from '../actions/userActions'
+import { getUserDetails, updateUserProfile } from '../actions/userActions'
 
 const ProfileScreen = ({ location, history }) => {
     const [name, setName] = useState('')
@@ -21,6 +21,9 @@ const ProfileScreen = ({ location, history }) => {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
+    const userUpdateProfile = useSelector(state => state.userUpdateProfile)
+    const { success } = userUpdateProfile
+
     useEffect(() => {
         if (!userInfo) {
             history.push('/login')
@@ -32,7 +35,7 @@ const ProfileScreen = ({ location, history }) => {
                 setEmail(user.email)
             }
         }
-    }, [dispatch, history, userInfo,user])
+    }, [dispatch, history, userInfo, user])
 
     const submitHandler = (e) => {
         e.preventDefault()
@@ -40,7 +43,7 @@ const ProfileScreen = ({ location, history }) => {
             setMessage('Passwords do not match')
         } else {
             //Dispatch update profile
-
+            dispatch(updateUserProfile({ id: user._id, name, email, password }))
         }
     }
     return (
@@ -49,29 +52,30 @@ const ProfileScreen = ({ location, history }) => {
                 <h2>Perfil</h2>
                 {message && <Message variant='danger'>{message}</Message>}
                 {error && <Message variant='danger'>{error}</Message>}
+                {success && <Message variant='success'>perfil actualizado</Message>}
                 {loading && <Loader />}
                 <Form onSubmit={submitHandler}>
                     <Form.Group as={Row} controlId='name'>
-                        <Form.Label  sm='4'>Nombre</Form.Label>
-                            <Form.Control type='name' placeholder='Nombre' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
+                        <Form.Label sm='4'>Nombre</Form.Label>
+                        <Form.Control type='name' placeholder='Nombre' value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
                     </Form.Group>
                     <Form.Group as={Row} controlId='email'>
-                        <Form.Label  sm='4'>Correo electrónico</Form.Label>
-                        
-                            <Form.Control type='email' placeholder='Correo electrónico' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
-                        
+                        <Form.Label sm='4'>Correo electrónico</Form.Label>
+
+                        <Form.Control type='email' placeholder='Correo electrónico' value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
+
                     </Form.Group>
                     <Form.Group as={Row} controlId='password'>
-                        <Form.Label  sm='4'>Contraseña</Form.Label>
-                        
-                            <Form.Control type='password' placeholder='Contraseña' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
-                        
+                        <Form.Label sm='4'>Contraseña</Form.Label>
+
+                        <Form.Control type='password' placeholder='Contraseña' value={password} onChange={(e) => setPassword(e.target.value)}></Form.Control>
+
                     </Form.Group>
                     <Form.Group as={Row} controlId='confirmPassword'>
-                        <Form.Label  sm='4'>Confirmar contraseña</Form.Label>
-                        
-                            <Form.Control type='confirmPassword' placeholder='Confirmar contraseña' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></Form.Control>
-                        
+                        <Form.Label sm='4'>Confirmar contraseña</Form.Label>
+
+                        <Form.Control type='confirmPassword' placeholder='Confirmar contraseña' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)}></Form.Control>
+
                     </Form.Group>
                     <Button type='submit' variant='primary'>Actualizar cuenta</Button>
                 </Form>
