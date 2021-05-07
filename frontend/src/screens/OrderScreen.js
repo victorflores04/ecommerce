@@ -24,8 +24,10 @@ const OrderScreen = ({ match }) => {
     }
 
     useEffect(() => {
-        dispatch(getOrderDetails(orderId))
-    }, [])
+        if (!order || order._id !== orderId) {
+            dispatch(getOrderDetails(orderId))
+        }
+    }, [order, orderId])
 
     return (
         loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message> : <>
@@ -39,7 +41,7 @@ const OrderScreen = ({ match }) => {
                             <p><strong>Email :</strong> <a href={`mailto:${order.user.email}`}> {order.user.email}</a></p>
                             <p><strong>Address:</strong> {order.shippingAddress.address},{order.shippingAddress.city}{' '},
                         {order.shippingAddress.postalCode}{' '},{order.shippingAddress.country} </p>
-                        {order.isDelivered ? <Message variant='success'>Delivered on {order.deliveredAt}</Message> :
+                            {order.isDelivered ? <Message variant='success'>Delivered on {order.deliveredAt}</Message> :
                                 <Message variant='danger'>Not Delivered </Message>}
                         </ListGroup.Item>
                         <ListGroup.Item>
