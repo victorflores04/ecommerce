@@ -26,15 +26,15 @@ const RegisterScreen = ({ location, history }) => {
         if (userInfo) {
             history.push(redirect)
         }
-    }, [history, userInfo])
+    }, [history, userInfo, redirect])
 
     const submitHandler = (e) => {
         e.preventDefault()
         if (password !== confirmPassword) {
             setMessage('Passwords do not match')
-        }else{
+        } else {
             //Dispatch Register
-        dispatch(register(name, email, password))
+            dispatch(register(name, email, password))
         }
     }
     return (
